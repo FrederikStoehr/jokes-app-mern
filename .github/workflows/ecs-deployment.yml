@@ -21,7 +21,7 @@ env:
   NODE_IMAGE_NAME: docker-02
   REACT_IMAGE_NAME: docker-03
   ECS_CLUSTER_NAME: Docker-Course-ECS-Cluster-01
-  ECS_SERVICE_NAME: Docker-Course-ECS-Service-01
+  ECS_SERVICE_NAME: Docker-Course-ECS-Service-02
   ECS_TASK_DEFINITION: Docker-Course-ECS-Task-01
   ECS_CONTAINER_NODE_NAME: nodeappcontainer
   ECS_CONTAINER_REACT_NAME: reactappcontainer

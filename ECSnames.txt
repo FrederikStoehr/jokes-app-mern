@@ -12,7 +12,7 @@ AWS ECS Task definition family: Docker-Course-ECS-Task-01
 AWS ECS Container Name 1: nodeappcontainer
 AWS ECS Container Name 2: reactappcontainer
 
-AWS ECS Service: Docker-Course-ECS-Service-01
+AWS ECS Service: Docker-Course-ECS-Service-02
 AWS Service Security Group: Docker-Course-SG-01
 AWS Servide Load Balancer: Docker-Course-LB-01
 AWS Servide Target Group 1 (Jokes API): Docker-Course-TG-01
