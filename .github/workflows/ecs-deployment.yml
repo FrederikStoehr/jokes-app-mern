@@ -117,5 +117,5 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v2
         with:
           task-definition: ${{ steps.task-def-react.outputs.task-definition }}
-          service: ${ env.ECS_SERVICE_NAME }
-          cluster: ${ env.ECS_CLUSTER_NAME }
+          service: ${{ env.ECS_SERVICE_NAME }}
+          cluster: ${{ env.ECS_CLUSTER_NAME }}
