@@ -1,7 +1,7 @@
 # https://docs.github.com/en/actions/tutorials/publish-packages/publish-docker-images
 # https://github.com/marketplace/actions/docker-login
 # https://github.com/marketplace/actions/docker-metadata-action
-# https://github.com/marketplace/actions/docker-build-push-action
+# https://github.com/marketplace/actions/build-and-push-docker-images
 name: Build and Deploy to ECS
 on:
   push:
