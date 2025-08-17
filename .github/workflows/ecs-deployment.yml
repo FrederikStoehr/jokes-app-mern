@@ -1,0 +1,45 @@
+# https://docs.github.com/en/actions/tutorials/publish-packages/publish-docker-images
+# https://github.com/marketplace/actions/docker-login
+# https://github.com/marketplace/actions/docker-metadata-action
+# https://github.com/marketplace/actions/docker-build-push-action
+name: Build and Deploy to ECS
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+env:
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+  NODE_IMAGE_NAME: docker-02
+
+jobs:
+  build-image-node:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ env.DOCKER_USERNAME }}
+          password: ${{ env.DOCKER_PASSWORD }}
+
+      - name: Add details to image
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.DOCKER_USERNAME }}/${{ env.NODE_IMAGE_NAME }}
+          tags: |
+            latest
+            v1.0.${{ github.run_number }}
+
+      - name: Build and push Docker image
+        id: push
+        uses: docker/build-push-action@6
+        with:
+          context: ./API-jokes
+          file: ./API-jokes/Dockerfile.prod
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
