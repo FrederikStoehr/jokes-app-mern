@@ -1,0 +1,18 @@
+Create Docker Image 1: docker image build -t axdisciplines/docker-02 -f .\Dockerfile.prod ./ 
+Create Docker Image 2: docker image build -t axdisciplines/docker-03 --build-arg VITE_API_BASE_URL=http://Docker-Course-LB-01-784454599.eu-central-1.elb.amazonaws.com -f .\Dockerfile.prod ./
+
+http://Docker-Course-LB-01-784454599.eu-central-1.elb.amazonaws.com
+http://Docker-Course-LB-01-784454599.eu-central-1.elb.amazonaws.com:3000
+
+Docker Hub Image 1 (Jokes API): axdisciplines/docker-02
+Docker Hub Image 2 (React Client): axdisciplines/docker-03
+AWS ECS Cluster: Docker-Course-ECS-Cluster-01
+AWS ECS Task definition family: Docker-Course-ECS-Task-01
+AWS ECS Container Name 1: nodeappcontainer
+AWS ECS Container Name 2: reactappcontainer
+
+AWS ECS Service: Docker-Course-ECS-Service-01
+AWS Service Security Group: Docker-Course-SG-01
+AWS Servide Load Balancer: Docker-Course-LB-01
+AWS Servide Target Group 1 (Jokes API): Docker-Course-TG-01
+AWS Servide Target Group 2 (React Client): Docker-Course-TG-02
