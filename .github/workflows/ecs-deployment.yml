@@ -3,6 +3,9 @@
 # https://github.com/marketplace/actions/docker-metadata-action
 # https://github.com/marketplace/actions/build-and-push-docker-images
 # https://github.com/marketplace/actions/configure-aws-credentials-action-for-github-actions
+# https://github.com/marketplace/actions/amazon-ecs-render-task-definition-action-for-github-actions
+# https://github.com/marketplace/actions/amazon-ecs-deploy-task-definition-action-for-github-actions
+
 name: Build and Deploy to ECS
 on:
   push:
@@ -17,6 +20,11 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   NODE_IMAGE_NAME: docker-02
   REACT_IMAGE_NAME: docker-03
+  ECS_CLUSTER_NAME: Docker-Course-ECS-Cluster-01
+  ECS_SERVICE_NAME: Docker-Course-ECS-Service-01
+  ECS_TASK_DEFINITION: Docker-Course-ECS-Task-01
+  ECS_CONTAINER_NODE_NAME: nodeappcontainer
+  ECS_CONTAINER_REACT_NAME: reactappcontainer
 
 jobs:
   build-image-node:
@@ -91,3 +99,23 @@ jobs:
           aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
+      - name: Modify ECS task definition for node app
+        id: task-def-node
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ${{ env.ECS_TASK_DEFINITION }}
+          container-name: ${{ env.ECS_CONTAINER_NODE_NAME }}
+          image: ${{ env.DOCKER_USERNAME }}/${{ env.NODE_IMAGE_NAME }}
+      - name: Modify ECS task definition for react app
+        id: task-def-react
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def-node.outputs.task-definition }}
+          container-name: ${{ env.ECS_CONTAINER_REACT_NAME }}
+          image: ${{ env.DOCKER_USERNAME }}/${{ env.REACT_IMAGE_NAME }}
+      - name: Deploy to Amazon ECS service
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+        with:
+          task-definition: ${{ steps.task-def-react.outputs.task-definition }}
+          service: ${ env.ECS_SERVICE_NAME }
+          cluster: ${ env.ECS_CLUSTER_NAME }

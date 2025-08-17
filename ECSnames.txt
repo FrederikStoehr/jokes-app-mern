@@ -6,6 +6,7 @@ http://Docker-Course-LB-01-784454599.eu-central-1.elb.amazonaws.com:3000
 
 Docker Hub Image 1 (Jokes API): axdisciplines/docker-02
 Docker Hub Image 2 (React Client): axdisciplines/docker-03
+
 AWS ECS Cluster: Docker-Course-ECS-Cluster-01
 AWS ECS Task definition family: Docker-Course-ECS-Task-01
 AWS ECS Container Name 1: nodeappcontainer
