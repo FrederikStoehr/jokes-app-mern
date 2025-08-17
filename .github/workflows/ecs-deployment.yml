@@ -91,15 +91,3 @@ jobs:
           aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
-
-      - name: Log in to Amazon ECR
-        uses: aws-actions/amazon-ecr-login@v1
-
-      - name: Deploy to Amazon ECS
-        uses: aws-actions/ecs-deploy@v1
-        with:
-          cluster: my-cluster
-          service: my-service
-          task-definition: my-task
-          container-name: my-container
-          image: ${{ env.DOCKER_USERNAME }}/${{ env.REACT_IMAGE_NAME }}:latest
