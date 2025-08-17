@@ -103,7 +103,7 @@ jobs:
         id: task-def-node
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: ${{ env.ECS_TASK_DEFINITION }}
+          task-definition-family: ${{ env.ECS_TASK_DEFINITION }}
           container-name: ${{ env.ECS_CONTAINER_NODE_NAME }}
           image: ${{ env.DOCKER_USERNAME }}/${{ env.NODE_IMAGE_NAME }}
       - name: Modify ECS task definition for react app
